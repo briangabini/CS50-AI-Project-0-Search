@@ -74,7 +74,7 @@ def terminal(board):
     """
     Returns True if game is over, False otherwise.
     """
-    raise NotImplementedError
+    return winner(board) is not None or all(all(cell is not None for cell in row) for row in board)
 
 
 def utility(board):
