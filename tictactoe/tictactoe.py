@@ -2,6 +2,7 @@
 Tic Tac Toe Player
 """
 
+import copy
 import math
 
 X = "X"
@@ -22,28 +23,38 @@ def player(board):
     """
     Returns player who has the next turn on a board.
     """
-    raise NotImplementedError
+    if board == initial_state():
+        return X
+    else:
+        x_count = sum(row.count(X) for row in board)
+        o_count = sum(row.count(O) for row in board)
+        return O if x_count > o_count else X
 
 
 def actions(board):
     """
     Returns set of all possible actions (i, j) available on the board.
     """
-    raise NotImplementedError
+    return {(i, j) for i in range(3) for j in range(3) if board[i][j] == EMPTY}
 
 
 def result(board, action):
     """
     Returns the board that results from making move (i, j) on the board.
     """
-    raise NotImplementedError
+    i, j = action
+    if board[i][j] != EMPTY:
+        raise Exception("Invalid move")
+    else:
+        new_board = copy.deepcopy(board)
+        new_board[i][j] = player(board)
+        return new_board
 
 
 def winner(board):
     """
     Returns the winner of the game, if there is one.
     """
-    raise NotImplementedError
 
 
 def terminal(board):
